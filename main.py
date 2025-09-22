@@ -18,7 +18,8 @@ uploaded_file = st.file_uploader("Upload an image:", type=["jpg", "png", "jpeg"]
 
 if uploaded_file:
     image = Image.open(uploaded_file)
-    st.image(image, caption="Uploaded Image", use_container_width=True)
+    with st.container(width=300):
+        st.image(image, caption="Uploaded Image", use_container_width=True)
 
     image = image.resize((640, 640))
     image_array = np.expand_dims(image, axis=0)
