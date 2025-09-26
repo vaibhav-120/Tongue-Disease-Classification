@@ -72,11 +72,11 @@ if st.session_state.confirmed_image:
     segmented_image = remove_background(image, segmentation_model)
     org_img_col, seg_img_col = st.columns(2)
     with org_img_col:
-        with st.container(height=100):
+        with st.container(height=650):
             st.image(image, caption="Selected Image for Prediction", use_container_width=True)
     with seg_img_col:
-        with st.container(height=100):
-            st.image(image, caption="Image after Background Removal", use_container_width=True)
+        with st.container(height=650):
+            st.image(segmented_image, caption="Image after Background Removal", use_container_width=True)
 
     img_resized = image.resize((640, 640))
     img_array = np.expand_dims(img_resized, axis=0)
