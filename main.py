@@ -2,11 +2,26 @@ import streamlit as st
 from PIL import Image
 import numpy as np
 from tensorflow.keras.models import load_model
+from rembg import remove, new_session
+from PIL import Image
+import os
 
 st.set_page_config(page_title="Tongue Diabetes Classification", layout="wide")
 
 model = load_model("model.keras")
+segmentation_model = "u2net.onnx"
 CLASS_NAMES = ["Diabetes", "Healthy"]
+
+def remove_background(input_image, model_path):
+    session = new_session(model_name="u2net", model_path=model_path)
+    
+    output_image = remove(input_image, session=session)
+    
+    black_bg = Image.new('RGBA', output_image.size, (0, 0, 0, 255))
+    black_bg.paste(output_image, (0, 0), output_image)
+    
+    black_bg = black_bg.convert('RGB')
+    return black_bg
 
 st.title("Tongue Diabetes Classification")
 st.write("Upload an image **or** take a picture of the tongue")
@@ -17,7 +32,7 @@ if "show_camera" not in st.session_state:
 if "captured_image" not in st.session_state:
     st.session_state.captured_image = None
 if "confirmed_image" not in st.session_state:
-    st.session_state.confirmed_image = None   # image chosen for prediction
+    st.session_state.confirmed_image = None
 
 
 uploaded = st.file_uploader("Upload an image:", type=["jpg", "png", "jpeg"])
@@ -55,9 +70,15 @@ if st.session_state.captured_image and not st.session_state.confirmed_image:
 # ---- Prediction after confirmation ----
 if st.session_state.confirmed_image:
     image = Image.open(st.session_state.confirmed_image).convert("RGB")
-    st.image(image, caption="Selected Image for Prediction", use_container_width=True)
+    segmented_image = remove_background(image, segmentation_model)
+    org_img_col, seg_img_col = st.columns(2)
+    with org_img_col:
+        with st.container(height=100):
+            st.image(image, caption="Selected Image for Prediction", use_container_width=True)
+    with seg_img_col:
+        with st.container(height=100):
+            st.image(image, caption="Image after Background Removal", use_container_width=True)
 
-    # Preprocess for model
     img_resized = image.resize((640, 640))
     img_array = np.expand_dims(img_resized, axis=0)
 
