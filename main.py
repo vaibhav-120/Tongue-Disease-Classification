@@ -4,7 +4,6 @@ import numpy as np
 from tensorflow.keras.models import load_model
 from rembg import remove, new_session
 from PIL import Image
-import os
 
 st.set_page_config(page_title="Tongue Diabetes Classification", layout="wide")
 
