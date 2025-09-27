@@ -4,6 +4,7 @@ import numpy as np
 from tensorflow.keras.models import load_model
 from rembg import remove, new_session
 from PIL import Image
+import face_detect
 
 st.set_page_config(page_title="Tongue Diabetes Classification", layout="wide")
 
@@ -69,13 +70,17 @@ if st.session_state.captured_image and not st.session_state.confirmed_image:
 # ---- Prediction after confirmation ----
 if st.session_state.confirmed_image:
     image = Image.open(st.session_state.confirmed_image).convert("RGB")
-    segmented_image = remove_background(image, segmentation_model)
-    org_img_col, seg_img_col = st.columns(2)
+    cropped_image = face_detect.crop_nose_to_chin(image)
+    segmented_image = remove_background(cropped_image, segmentation_model)
+    org_img_col, crop_img_col, seg_img_col = st.columns(3)
     with org_img_col:
-        with st.container(height=650):
+        with st.container():
             st.image(image, caption="Selected Image for Prediction", use_container_width=True)
+    with crop_img_col:
+        with st.container():
+            st.image(cropped_image, caption="Cropped Image (Tongue)", use_container_width=True)
     with seg_img_col:
-        with st.container(height=650):
+        with st.container():
             st.image(segmented_image, caption="Image after Background Removal", use_container_width=True)
 
     img_resized = image.resize((640, 640))
