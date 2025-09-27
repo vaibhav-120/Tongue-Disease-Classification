@@ -1,5 +1,6 @@
 keras==3.10.0
-numpy>=2.0,<2.2
+numpy==1.26.4
+opencv-python-headless<4.12
 onnxruntime==1.23.0
 pandas==2.3.2
 pillow==11.3.0
