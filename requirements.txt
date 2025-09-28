@@ -1,13 +1,9 @@
 numpy>=1.24,<2
 mediapipe==0.10.21
 tensorflow>=2.19.0,<2.20
-keras>=3.10.0,<3.11
 opencv-python>=4.12.0
 opencv-contrib-python>=4.11.0
 scipy>=1.16.0,<1.17
 matplotlib>=3.10.0,<3.11
 pandas>=2.3.0,<2.4
 streamlit>=1.50.0,<1.60
-h5py>=3.14.0
-jax>=0.7.1
-jaxlib>=0.7.1
