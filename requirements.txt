@@ -12,3 +12,4 @@ h5py>=3.14
 jax>=0.7.1
 jaxlib>=0.7.1
 rembg
+onnxruntime
