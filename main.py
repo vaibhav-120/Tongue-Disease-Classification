@@ -6,7 +6,7 @@ from rembg import remove, new_session
 import face_detect
 
 st.set_page_config(page_title="Tongue Diabetes Classification", layout="wide")
-model = tf.keras.models.load_model("model.keras",compile=False)
+model = tf.keras.models.load_model("model.keras")
 segmentation_model = "u2net.onnx"
 CLASS_NAMES = ["Diabetes", "Healthy"]
 
