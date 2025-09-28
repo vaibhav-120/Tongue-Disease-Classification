@@ -1,12 +1,11 @@
 keras==3.10.0
 numpy==1.26.4
-opencv-python-headless<4.12
 onnxruntime==1.23.0
+opencv-contrib-python==4.11.0.86
+opencv-python-headless==4.12.0.88
 pandas==2.3.2
 pillow==11.3.0
 rembg==2.0.67
 streamlit==1.49.1
-tensorflow==2.19.0
+tensorflow==2.20.0
 mediapipe==0.10.21
-opencv-contrib-python==4.11.0.86
-opencv-python-headless==4.12.0.88
