@@ -44,7 +44,7 @@ namex==0.1.0
 narwhals==2.5.0
 networkx==3.5
 numba==0.62.0
-numpy==2.0.2
+numpy>=1.24,<2
 onnxruntime==1.23.0
 opencv-contrib-python==4.11.0.86
 opencv-python==4.12.0.88
